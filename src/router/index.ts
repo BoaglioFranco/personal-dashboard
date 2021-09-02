@@ -1,25 +1,32 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import Bookmarks from "../views/Bookmarks.vue";
+import Notes from "../views/Notes.vue";
+import Todos from "../views/Todos.vue";
+import AddNote from "../views/AddNote.vue";
+import AddTodo from "../views/AddTodo.vue";
+import AddBookmark from "../views/AddBookmark.vue";
+import ManageBookmarks from "../views/ManageBookmarks.vue";
+import EditBookmark from "../views/EditBookmark.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  { path: "/bookmarks", component: Bookmarks },
+  { path: "/bookmarks/add", component: AddBookmark },
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/bookmarks/manage",
+    component: ManageBookmarks,
+    children: [{ path: ":id", component: EditBookmark }],
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+  { path: "/todos", component: Todos },
+  { path: "/todos/add", component: AddTodo },
+  { path: "/todos/edit/:id", component: AddTodo },
+  { path: "/notes", component: Notes },
+  { path: "/notes/add", component: AddNote },
+  { path: "/notes/edit/:id", component: AddNote },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
